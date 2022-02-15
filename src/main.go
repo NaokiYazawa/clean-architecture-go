@@ -37,7 +37,11 @@ func main() {
 		log.Fatalln(err)
 	}
 
-	db.AutoMigrate(&model.User{})
+	// db.AutoMigrate(&model.User{})
+
+	if err := db.AutoMigrate(&model.User{}); err != nil {
+		return
+	}
 
 	userRepository := persistence.NewUserRepository(db)
 	userUsecase := usecase.NewUserUsecase(userRepository)

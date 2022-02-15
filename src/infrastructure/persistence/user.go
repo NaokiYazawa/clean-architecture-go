@@ -25,12 +25,18 @@ func NewUserRepository(conn *gorm.DB) repository.UserRepository {
 // userRepository に依存
 func (userRepository *UserRepository) Create(User *model.User) (*model.User, error) {
 	user := model.User{}
-	copier.Copy(&user, &User)
+	// copier.Copy(&user, &User)
+	if err := copier.Copy(&user, &User); err != nil {
+		return nil, err
+	}
 	if err := userRepository.Conn.Create(&user).Error; err != nil {
 		return nil, err
 	}
 	userModel := new(model.User)
-	copier.Copy(&userModel, &user)
+	// copier.Copy(&userModel, &user)
+	if err := copier.Copy(&userModel, &user); err != nil {
+		return nil, err
+	}
 
 	return userModel, nil
 }
@@ -42,7 +48,10 @@ func (userRepository *UserRepository) ReadByID(id int) (*model.User, error) {
 		return nil, err
 	}
 	userModel := new(model.User)
-	copier.Copy(&userModel, &user)
+	// copier.Copy(&userModel, &user)
+	if err := copier.Copy(&userModel, &user); err != nil {
+		return nil, err
+	}
 
 	return userModel, nil
 }
@@ -53,7 +62,10 @@ func (userRepository *UserRepository) ReadAll() (*model.Users, error) {
 	// gorm.Find from v2 doesn't return ErrRecordNotFound
 	userRepository.Conn.Find(&users)
 	userModels := new(model.Users)
-	copier.Copy(&userModels, &users)
+	// copier.Copy(&userModels, &users)
+	if err := copier.Copy(&userModels, &users); err != nil {
+		return nil, err
+	}
 
 	return userModels, nil
 }
@@ -61,14 +73,20 @@ func (userRepository *UserRepository) ReadAll() (*model.Users, error) {
 // Update Update an user
 func (userRepository *UserRepository) Update(User *model.User) (*model.User, error) {
 	user := model.User{}
-	copier.Copy(&user, &User)
+	// copier.Copy(&user, &User)
+	if err := copier.Copy(&user, &User); err != nil {
+		return nil, err
+	}
 	// Save vs Update
 	// どちらの方が better なのか。
 	if err := userRepository.Conn.Model(&user).Updates(&user).Error; err != nil {
 		return nil, err
 	}
 	userModel := new(model.User)
-	copier.Copy(&userModel, &user)
+	// copier.Copy(&userModel, &user)
+	if err := copier.Copy(&userModel, &user); err != nil {
+		return nil, err
+	}
 
 	return userModel, nil
 }
@@ -76,12 +94,18 @@ func (userRepository *UserRepository) Update(User *model.User) (*model.User, err
 // Delete Delete an user
 func (userRepository *UserRepository) Delete(User *model.User) error {
 	user := model.User{}
-	copier.Copy(&user, &User)
+	// copier.Copy(&user, &User)
+	if err := copier.Copy(&user, &User); err != nil {
+		return err
+	}
 	if err := userRepository.Conn.Delete(&user).Error; err != nil {
 		return err
 	}
 	userModel := new(model.User)
-	copier.Copy(&userModel, &user)
+	// copier.Copy(&userModel, &user)
+	if err := copier.Copy(&userModel, &user); err != nil {
+		return err
+	}
 
 	return nil
 }
