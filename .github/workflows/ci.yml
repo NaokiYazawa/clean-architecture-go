@@ -1,12 +1,8 @@
 name: golangci-lint
 on:
   push:
-    tags:
-      - v*
     branches:
-      - master
       - main
-  pull_request:
 permissions:
   contents: read
   # Optional: allow read access to pull request. Use with `only-new-issues` option.
@@ -40,3 +36,13 @@ jobs:
 
           # Optional: if set to true then the action don't cache or restore ~/.cache/go-build.
           # skip-build-cache: true
+      - name: Slack
+        uses: 8398a7/action-slack@v3
+        if: always()
+        with:
+          status: ${{ job.status }}
+          fields: repo,commit,action,eventName,took
+          mention: here
+          if_mention: always
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
