@@ -1,4 +1,5 @@
 package usecase
+// usecase 層は domain 層で定義した interface 層に依存している。
 
 import (
 	"github.com/NaokiYazawa/clean-architecture-go/domain/model"
@@ -23,7 +24,8 @@ type UserUsecase interface {
 
 // 同じ層に repository インターフェースを定義し、このインターフェースに依存するようにする。
 
-
+// 以下が「usecase 層は domain 層で定義した interface 層に依存している。」ということ？
+// repository.UserRepository は interface
 type userUsecase struct {
 	userRepository repository.UserRepository
 }

@@ -8,6 +8,7 @@ import (
 // データにアクセスするためのインターフェース
 // Data Access Interface
 // UserRepository Interface of an user repository
+// UserRepository is interface for infrastructure
 type UserRepository interface {
 	Create(user *model.User) (*model.User, error)
 	ReadByID(id int) (*model.User, error)

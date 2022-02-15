@@ -1,4 +1,8 @@
 package controller
+// router から呼び出され
+// - リクエストで渡されたデータを usecase 層へ受け渡す。
+// - 戻り値として受け取ったデータを、JSON 形式で返す。
+// という役割を担っている。
 
 import (
 	"github.com/NaokiYazawa/clean-architecture-go/usecase"
@@ -17,12 +21,15 @@ type UserController interface {
 	Delete() echo.HandlerFunc
 }
 
+// usecase.UserUsecase は interface
 type userController struct {
+	// インターフェースの usecase.UserUsecase 型を定義
 	userUsecase usecase.UserUsecase
 }
 
 // NewUserController Constructor of an user controller
 func NewUserController(userUsecase usecase.UserUsecase) UserController {
+	// 構造体を返す
 	return &userController{userUsecase: userUsecase}
 }
 

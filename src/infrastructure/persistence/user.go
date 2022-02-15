@@ -12,6 +12,8 @@ import (
 )
 
 // UserRepository struct of an user repository
+// domain 層の repository で定義した interface を満たすメソッドを持つ構造体を実装する。
+// この構造体は、domain 層の repository で定義した interface を満たすメソッド（Create・ReadById、ReadAll、Update、Delete）を持つ。
 type UserRepository struct {
 	Conn *gorm.DB
 }
@@ -22,7 +24,7 @@ func NewUserRepository(conn *gorm.DB) repository.UserRepository {
 }
 
 // Create Create an user
-// userRepository に依存
+// userRepository（interface） に依存
 func (userRepository *UserRepository) Create(User *model.User) (*model.User, error) {
 	user := model.User{}
 	// copier.Copy(&user, &User)
