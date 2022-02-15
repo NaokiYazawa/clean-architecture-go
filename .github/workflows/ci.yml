@@ -41,7 +41,7 @@ jobs:
         if: always()
         with:
           status: ${{ job.status }}
-          fields: repo,commit,action,eventName,took
+          fields: repo,commit,action,eventName
           mention: here
           if_mention: always
         env:
