@@ -23,12 +23,13 @@ func main() {
 		fmt.Printf("Failed to load env file: %v", err)
 	}
 
+	host := os.Getenv("POSTGRES_HOST")
 	user := os.Getenv("POSTGRES_USER")
 	password := os.Getenv("POSTGRES_PASSWORD")
 	dbName := os.Getenv("POSTGRES_DB")
 	port := os.Getenv("DB_PORT")
 
-	dbUri := fmt.Sprintf("host=localhost user=%s password=%s dbname=%s port=%s", user, password, dbName, port)
+	dbUri := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s", host, user, password, dbName, port)
 
 	db, err := gorm.Open(postgres.Open(dbUri), &gorm.Config{})
 

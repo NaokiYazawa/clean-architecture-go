@@ -1,3 +1,4 @@
+// Entities
 package model
 
 import (
@@ -16,6 +17,7 @@ type User struct {
 type Users []User
 
 // NewUser Constructor of an user
+// ビジネスのルールが分かる。
 func NewUser(name string) (*User, error) {
 	if name == "" {
 		return nil, errors.New("名前は必須です。")

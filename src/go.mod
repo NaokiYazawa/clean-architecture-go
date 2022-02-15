@@ -1,6 +1,6 @@
 module github.com/NaokiYazawa/clean-architecture-go
 
-go 1.17
+go 1.16
 
 require (
 	github.com/jinzhu/copier v0.3.5

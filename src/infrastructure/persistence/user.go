@@ -1,5 +1,6 @@
 // インフラ層
 // データベースは永続化するため persistent という命名
+// Data Access
 package persistence
 
 import (
@@ -21,6 +22,7 @@ func NewUserRepository(conn *gorm.DB) repository.UserRepository {
 }
 
 // Create Create an user
+// userRepository に依存
 func (userRepository *UserRepository) Create(User *model.User) (*model.User, error) {
 	user := model.User{}
 	copier.Copy(&user, &User)

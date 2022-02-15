@@ -5,6 +5,8 @@ import (
 )
 
 // メソッド名(とコメント)で機能を「定義」だけする。
+// データにアクセスするためのインターフェース
+// Data Access Interface
 // UserRepository Interface of an user repository
 type UserRepository interface {
 	Create(user *model.User) (*model.User, error)

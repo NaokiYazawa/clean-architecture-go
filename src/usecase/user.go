@@ -6,6 +6,8 @@ import (
 )
 
 // UserUsecase Interface of an user usecase
+// Input Boundary
+// どういった引数（入力データ）が必要なのかを定義する
 type UserUsecase interface {
 	Create(name string) (*model.User, error)
 	ReadByID(id int) (*model.User, error)
@@ -34,6 +36,7 @@ func NewUserUsecase(userRepository repository.UserRepository) UserUsecase {
 
 // UseCase は、あくまでアプリケーションとして何が出来るのかのみを表現するだけである。
 // そのため、実装は持たない。
+// ビジネスロジック
 // Create Usecase to save an user
 func (userUsecase *userUsecase) Create(name string) (*model.User, error) {
 	// validation
@@ -47,6 +50,7 @@ func (userUsecase *userUsecase) Create(name string) (*model.User, error) {
 		return nil, err
 	}
 
+	// presenter に対して出力
 	return createdUser, nil
 }
 

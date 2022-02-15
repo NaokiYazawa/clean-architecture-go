@@ -26,6 +26,7 @@ func NewUserController(userUsecase usecase.UserUsecase) UserController {
 	return &userController{userUsecase: userUsecase}
 }
 
+// Input Data
 type requestUser struct {
 	Name  string `json:"name"`
 }
@@ -78,23 +79,31 @@ func (userController *userController) GetAll() echo.HandlerFunc {
 }
 
 // Post Controller of posting user
+// アプリケーションが要求するデータに、「入力を変換」 → Controller
 func (userController *userController) Post() echo.HandlerFunc {
 	return func(c echo.Context) error {
+		// Input Data???
+		// 入力のデータを生成
 		var req requestUser
 		if err := c.Bind(&req); err != nil {
 			return c.JSON(http.StatusBadRequest, err.Error())
 		}
 
+		// Usecase Create が欲しがっているデータに変換して渡す
+		// Input Boundary を Call
+		// 実際に処理を行うのは Use Case Interacter
 		createdUser, err := userController.userUsecase.Create(req.Name)
 		if err != nil {
 			return c.JSON(http.StatusBadRequest, err.Error())
 		}
 
+		// View Model ??
 		res := responseUser{
 			ID:        createdUser.ID,
 			Name:  createdUser.Name,
 		}
 
+		// View
 		return c.JSON(http.StatusCreated, res)
 	}
 }
