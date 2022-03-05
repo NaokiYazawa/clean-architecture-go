@@ -42,7 +42,7 @@ jobs:
         with:
           status: ${{ job.status }}
           fields: repo,commit,action,eventName
-          mention: here
-          if_mention: always
+          # mention: here
+          # if_mention: always
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
