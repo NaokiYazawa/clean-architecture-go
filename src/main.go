@@ -1,20 +1,20 @@
 package main
 
 import (
-	"log"
 	"fmt"
+	"log"
 	"os"
 
+	"github.com/NaokiYazawa/clean-architecture-go/domain/model"
 	"github.com/NaokiYazawa/clean-architecture-go/infrastructure/persistence"
 	"github.com/NaokiYazawa/clean-architecture-go/interface/controller"
 	"github.com/NaokiYazawa/clean-architecture-go/usecase"
-	"github.com/NaokiYazawa/clean-architecture-go/domain/model"
-	"gorm.io/driver/postgres"
 	"github.com/joho/godotenv"
+	"gorm.io/driver/postgres"
 
-	"gorm.io/gorm"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
+	"gorm.io/gorm"
 )
 
 func main() {
@@ -43,6 +43,7 @@ func main() {
 		return
 	}
 
+	// 依存関係の注入
 	userRepository := persistence.NewUserRepository(db)
 	userUsecase := usecase.NewUserUsecase(userRepository)
 	userController := controller.NewUserController(userUsecase)
@@ -52,7 +53,7 @@ func main() {
 
 	// 全てのリクエストで差し込みたいミドルウェア
 	e.Use(middleware.Logger())
-  e.Use(middleware.Recover())
+	e.Use(middleware.Recover())
 
 	// ルーティング
 	controller.InitRouting(e, userController)
