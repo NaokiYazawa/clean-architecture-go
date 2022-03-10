@@ -1,18 +1,21 @@
 package controller
+
 // router から呼び出され
 // - リクエストで渡されたデータを usecase 層へ受け渡す。
 // - 戻り値として受け取ったデータを、JSON 形式で返す。
 // という役割を担っている。
 
 import (
-	"github.com/NaokiYazawa/clean-architecture-go/usecase"
 	"net/http"
 	"strconv"
+
+	"github.com/NaokiYazawa/clean-architecture-go/usecase"
 
 	"github.com/labstack/echo"
 )
 
 // UserController Interface of an user controller
+// userController は 下記の interface で定義されているメソッドが実装されている
 type UserController interface {
 	Post() echo.HandlerFunc
 	Get() echo.HandlerFunc
@@ -35,12 +38,12 @@ func NewUserController(userUsecase usecase.UserUsecase) UserController {
 
 // Input Data
 type requestUser struct {
-	Name  string `json:"name"`
+	Name string `json:"name"`
 }
 
 type responseUser struct {
-	ID    int    `json:"id"`
-	Name  string `json:"name"`
+	ID   int    `json:"id"`
+	Name string `json:"name"`
 }
 
 // Get Controller of getting user
@@ -57,8 +60,8 @@ func (userController *userController) Get() echo.HandlerFunc {
 		}
 
 		res := responseUser{
-			ID:        foundUser.ID,
-			Name:  foundUser.Name,
+			ID:   foundUser.ID,
+			Name: foundUser.Name,
 		}
 
 		return c.JSON(http.StatusOK, res)
@@ -76,8 +79,8 @@ func (userController *userController) GetAll() echo.HandlerFunc {
 		res := []responseUser{}
 		for _, foundUser := range *foundUsers {
 			res = append(res, responseUser{
-				ID:        foundUser.ID,
-				Name:  foundUser.Name,
+				ID:   foundUser.ID,
+				Name: foundUser.Name,
 			})
 		}
 
@@ -106,8 +109,8 @@ func (userController *userController) Post() echo.HandlerFunc {
 
 		// View Model ??
 		res := responseUser{
-			ID:        createdUser.ID,
-			Name:  createdUser.Name,
+			ID:   createdUser.ID,
+			Name: createdUser.Name,
 		}
 
 		// View
@@ -134,8 +137,8 @@ func (userController *userController) Put() echo.HandlerFunc {
 		}
 
 		res := responseUser{
-			ID:        updatedUser.ID,
-			Name:  updatedUser.Name,
+			ID:   updatedUser.ID,
+			Name: updatedUser.Name,
 		}
 
 		return c.JSON(http.StatusOK, res)

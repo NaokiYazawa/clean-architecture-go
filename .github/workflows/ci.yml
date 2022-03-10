@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    types: [opened, reopened]
 permissions:
   contents: read
   # Optional: allow read access to pull request. Use with `only-new-issues` option.
@@ -43,6 +45,6 @@ jobs:
           status: ${{ job.status }}
           fields: repo,commit,action,eventName
           # mention: here
-          # if_mention: always
+          if_mention: always
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

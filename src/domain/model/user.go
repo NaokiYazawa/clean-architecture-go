@@ -3,14 +3,13 @@ package model
 
 import (
 	"errors"
-  "gorm.io/gorm"
 )
 
 // User Struct of an user
+// Userを表すドメインモデルであるから、データベース関連のことは記述しない
 type User struct {
-	gorm.Model
-	ID   int    `json:"id" gorm:"primaryKey"`
-	Name string `json:"name"`
+	ID   int
+	Name string
 }
 
 // User Struct of users
